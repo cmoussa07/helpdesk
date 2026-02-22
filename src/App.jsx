@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./app/components/Client/Header";
+import Sidebar from "./app/components/Agent/Sidebar";
+import Home from "./Home";
+import DashboardAgent from "./app/components/Agent/dashboard";
+// import Header from "./app/components/Client/Header";
+import Header from "./app/components/Agent/Header";
+import MesTickets from "./app/components/Agent/MesTickets";
 import Footer from "./app/components/Client/Footer";
 import Acceuil from "./app/components/Client/Acceuil";
-import CreateTicket from "./app/components/Client/CreateTicket";
-import CreateTicketModal from "./app/components/Client/CreateTicketModal";
-import ListTicket from "./app/components/Client/ListTicket";
+// import CreateTicket from "./app/components/Client/CreateTicket";
+import CreateTicket from "./app/components/Communs/CreateTicket";
+import CreateTicketModal from "./app/components/Communs/CreateTicketModal";
+// import CreateTicketModal from "./app/components/Client/CreateTicketModal";
+import ListTicket from "./app/components/Communs/ListTicket";
 import Faqs from "./app/components/Client/Faqs";
 import Chats from "./app/components/Client/Chats";
-import TicketDetail from "./app/components/Client/TicketDetail";
+import TicketDetail from "./app/components/Communs/TicketDetail";
 
 function App() {
   const [tickets, setTickets] = useState([]);
@@ -25,59 +32,54 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
-        {/* En-tete */}
-        <Header />
-
-        {/* Modal de création de ticket (rendu conditionnellement) */}
-        {isModalOpen && (
-          <CreateTicketModal
-            tickets={tickets}
-            setTickets={setTickets}
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-          />
-        )}
-
-        <Routes>
-          {/* Contenu principal */}
-          <Route
-            path="/"
-            element={
-              <Acceuil
-                tickets={tickets}
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
+      <div className="flex min-h-screen bg-gray-50">
+        <Sidebar />
+        {/* Contenu principal */}
+        <div className="flex-1 flex flex-col">
+          <Header tickets={tickets} setIsModalOpen={setIsModalOpen} />
+          {isModalOpen && (
+            <CreateTicketModal
+              tickets={tickets}
+              setTickets={setTickets}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+            />
+          )}
+          <main className="flex-1 bg-gray-100 p-4">
+            <Routes>
+              <Route path="/" element={<DashboardAgent tickets={tickets} />} />
+              <Route
+                path="/Communs/ListTicket"
+                element={
+                  <ListTicket tickets={tickets} setTickets={setTickets} />
+                }
               />
-            }
-          >
-            {" "}
-          </Route>
+              {/* <Route path="/TicketDetail" element={<TicketDetail tickets={tickets} setTickets={setTickets} />} /> */}
+              {/* Ajoutez d'autres routes ici */}
 
-          {/* {Autres pages} */}
+              <Route
+                path="/Communs/CreateTicket"
+                element={
+                  <CreateTicket tickets={tickets} setTickets={setTickets} />
+                }
+              />
 
-          <Route
-            path="/CreateTicket"
-            element={<CreateTicket tickets={tickets} setTickets={setTickets} />}
-          >
-            {" "}
-          </Route>
+              <Route
+                path="/Agent/MesTickets"
+                element={
+                  <MesTickets
+                    tickets={tickets}
+                    setTickets={setTickets}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                  />
+                }
+              />
+            </Routes>
 
-          <Route path="/ListTicket" element={<ListTicket tickets={tickets} />}>
-            {" "}
-          </Route>
-          <Route path="/Faqs" element={<Faqs />}>
-            {" "}
-          </Route>
-          <Route path="/Chats" element={<Chats />}>
-            {" "}
-          </Route>
-          <Route path="/TicketDetail/:id" element={<TicketDetail />}>
-            {" "}
-          </Route>
-        </Routes>
-        {/* Footer */}
-        <Footer />
+            {/* {isModalOpen && <CreateTicketModal onClose={() => setIsModalOpen(false)} />} */}
+          </main>
+        </div>
       </div>
     </Router>
   );

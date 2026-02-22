@@ -1,9 +1,7 @@
 import { Plus, TicketIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-
-export default function HeroSection({ tickets,isModalOpen, setIsModalOpen }) {
-
+export default function HeroSection({ tickets, setIsModalOpen }) {
   const navigate = useNavigate();
 
   return (
@@ -14,18 +12,21 @@ export default function HeroSection({ tickets,isModalOpen, setIsModalOpen }) {
           Créez un ticket de support ou consultez vos demandes en cours
         </p>
         <div className="flex gap-4">
-          <button onClick={() => setIsModalOpen(true)}
-          className="bg-white text-blue-600  to-purple-500  px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-blue-50">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-white text-blue-600  to-purple-500  px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-blue-50"
+          >
             <Plus className="w-5 h-5" />
             Créer un ticket
           </button>
 
-          <button onClick={()=>navigate("/ListTicket")}
-          className="bg-white/20 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-white/30 backdrop-blur-sm">
+          <button
+            onClick={() => navigate("/Client/ListTicket")}
+            className="bg-white/20 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-white/30 backdrop-blur-sm"
+          >
             <TicketIcon className="w-5 h-5" />
             Mes tickets ({tickets.length})
           </button>
-      
         </div>
       </div>
     </div>

@@ -4,15 +4,15 @@ import { Card, CardContent } from "../ui/card";
 export default function StatsSection({ tickets }) {
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card className="border-2 border-blue-100">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600">
-                  Total de tickets
+                <p className="text-gray-600">Total de tickets</p>
+                <p className="mt-2 text-2xl font-bold text-gray-600">
+                  {tickets.length}
                 </p>
-                <p className="mt-2 text-2xl font-bold text-gray-600"></p>
               </div>
               <TicketIcon className="h-8 w-8 text-blue-600" />
             </div>
