@@ -71,17 +71,7 @@ export default function CreateTicket({ tickets, setTickets }) {
   return (
     <div className="py-10">
       <div className="max-w-7xl mx-auto">
-        <button
-          onClick={() => navigate("/")}
-          className="flex items-center gap-2 hover:text-blue-700 ml-12 mb-6"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          <span>Retour au tableau de bord</span>
-        </button>
-
-        <div className="mb-6">
-          <h1 className="text-center text-3xl">Créer un nouveau ticket</h1>
-        </div>
+        <h1 className="mb-6 text-center text-3xl">Créer un nouveau ticket</h1>
       </div>
 
       <Card className="w-full max-w-4xl rounded-2xl border-2 border-blue-200 mx-auto">

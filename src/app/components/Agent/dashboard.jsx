@@ -1,5 +1,6 @@
 import StatsSection from "../Communs/StatsSection";
 import ListTicket from "../Communs/ListTicket";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export default function DashboardAgent({ tickets, setTickets }) {
   return (
@@ -15,7 +16,15 @@ export default function DashboardAgent({ tickets, setTickets }) {
       <StatsSection tickets={tickets} />
 
       {/* 5 derniers tickets */}
-      <h3 className="text-lg font-semibold px-6 mb-3">Tickets récents</h3>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Tickets récents</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ListTicket tickets={tickets.slice(0, 5)} />
+        </CardContent>
+      </Card>
 
       {/* <ListTicket tickets={tickets} setTickets={setTickets} /> */}
     </div>

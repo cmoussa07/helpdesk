@@ -24,50 +24,6 @@ dist-ssr
 *.sw?
    
 
-       {/* En-tete */}
-      <Header />
-      {isModalOpen && (
-        <CreateTicketModal
-          tickets={tickets}
-          setTickets={setTickets}
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-        />
-      )}
-      <Routes>
-        {/* Contenu principal */}
-        <Route
-          path="/"
-          element={
-            <Acceuil
-              tickets={tickets}
-              isModalOpen={isModalOpen}
-              setIsModalOpen={setIsModalOpen}
-            />
-          }
-        ></Route>
-
-        {/* {Autres pages} */}
-
-        <Route
-          path="/Client/CreateTicket"
-          element={<CreateTicket tickets={tickets} setTickets={setTickets} />}
-        ></Route>
-
-        <Route
-          path="/Client/ListTicket"
-          element={<ListTicket tickets={tickets} />}
-        ></Route>
-        <Route path="/Client/Faqs" element={<Faqs />}></Route>
-        <Route path="/Client/Chats" element={<Chats />}></Route>
-        <Route
-          path="/Client/TicketDetail/:id"
-          element={<TicketDetail />}
-        ></Route>
-      </Routes>
-      {/* Footer */}
-      <Footer />
-
 
          <div className="flex min-h-screen bg-gray-50">
         <Sidebar />

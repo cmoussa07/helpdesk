@@ -2,7 +2,7 @@ import { Send, X } from "lucide-react";
 import { Card, CardHeader, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Label } from "../ui/label";
 
 export default function CreateTicketModal({
@@ -23,6 +23,9 @@ export default function CreateTicketModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const estSurPageMesTickets = location.pathname === "/Agent/MesTickets";
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -66,7 +69,9 @@ export default function CreateTicketModal({
 
       // la modal se ferme on rediriger vers la liste des tickets après création
       setIsModalOpen(false);
-      navigate("/Communs/ListTicket");
+      if (!estSurPageMesTickets) {
+        navigate("/Communs/ListTicket");
+      }
     } catch (err) {
       setError(err.message);
     } finally {

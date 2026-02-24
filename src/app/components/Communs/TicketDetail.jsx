@@ -14,7 +14,7 @@
 //    // 1. HOOKS DE NAVIGATION
 //   const navigate = useNavigate(); // Pour changer de page
 //   const { id } = useParams(); // Récupère l'ID depuis l'URL : /TicketDetail/123 → id = "123"
-  
+
 //   // 2. ÉTAT LOCAL DU COMPOSANT
 //   const [ticket, setTicket] = useState(null); // Stocke les données du ticket
 //   const [loading, setLoading] = useState(true); // Afficher "Chargement..."
@@ -120,7 +120,7 @@
 //                 <div className="inline-flex flex-col items-center p-4 bg-gray-100 rounded-lg border">
 //                   <span className="text-sm font-medium text-gray-500 mb-2">Statut actuel du ticket</span>
 //                   <span className={`px-4 py-2 rounded-full font-bold text-sm
-//                     ${ticket.statutId === 1 
+//                     ${ticket.statutId === 1
 //                       ? "bg-blue-100 text-blue-800 border border-blue-300" :
 //                       ticket.statutId === 2
 //                       ? "bg-orange-100 text-orange-800 border border-orange-300" :
@@ -219,11 +219,11 @@
 //                 <InfoItem icon={<AlertCircle />} label="Priorité"
 //                 value={ticket.prioriteLibelle}
 //                 valueClassName={`px-4 py-2 rounded-full font-bold text-sm
-//                   ${ticket.prioriteId === 1 
+//                   ${ticket.prioriteId === 1
 //                     ? "bg-blue-100 text-red-800 border border-red-300" :
 //                     ticket.prioriteId === 2
 //                     ? "bg-orange-100 text-orange-800 border border-orange-300" :
-//                     "bg-green-100 text-green-800 border border-green-300" 
+//                     "bg-green-100 text-green-800 border border-green-300"
 //                   }`}
 //                 />
 //                 {/* <InfoItem
@@ -244,35 +244,35 @@
 //             <div className="bg-white border border-gray-300 rounded-xl p-6 shadow-sm">
 //               <h3 className="text-gray-700 mb-4">Suivi du ticket</h3>
 //               <div className="space-y-3">
-//                 <WorkflowStep 
-//                   num={1} 
-//                   label="Nouveau" 
+//                 <WorkflowStep
+//                   num={1}
+//                   label="Nouveau"
 //                   active={ticket.statutId === 1}
 //                   completed={ticket.statutId > 1}
 //                   date={ticket.dateCreTic}
 //                   statusColor="blue"
 //                 />
-                
-//                 <WorkflowStep 
-//                   num={2} 
-//                   label="En cours" 
+
+//                 <WorkflowStep
+//                   num={2}
+//                   label="En cours"
 //                   description="En traitement par notre équipe"
 //                   active={ticket.statutId === 2}
 //                   completed={ticket.statutId > 2}
 //                   statusColor="orange"
 //                 />
-                
-//                 <WorkflowStep 
-//                   num={3} 
-//                   label="Resolu" 
+
+//                 <WorkflowStep
+//                   num={3}
+//                   label="Resolu"
 //                   active={ticket.statutId === 3}
 //                   completed={ticket.statutId > 3}
 //                   statusColor="green"
 //                 />
-                
-//                 <WorkflowStep 
-//                   num={4} 
-//                   label="Ferme" 
+
+//                 <WorkflowStep
+//                   num={4}
+//                   label="Ferme"
 //                   active={ticket.statutId === 4}
 //                   completed={ticket.statutId === 4}
 //                   statusColor="red"
@@ -281,34 +281,31 @@
 //             </div>
 //           </div>
 //         </div>
-//       </div> 
+//       </div>
 //     </div>
 //   );
 // }
 
-
 // Composant utilitaire pour le workflow
 // Composant utilitaire pour le workflow
 
-
-
-import {formatDate} from "../utils/formatDate";
+import { formatDate } from "../utils/formatDate";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Textarea } from "../ui/textarea";
-import { 
-  Clock, 
-  Tag, 
-  AlertCircle, 
-  MessageSquare,  
-  Send, 
+import {
+  Clock,
+  Tag,
+  AlertCircle,
+  MessageSquare,
+  Send,
   ArrowLeft,
   User,
   Calendar,
-  Paperclip 
+  Paperclip,
 } from "lucide-react";
 
 // Configuration des COULEURS seulement (les libellés viennent d'ASP.NET)
@@ -327,7 +324,8 @@ const ticket_config = {
     3: {
       color: "green",
       bgColor: "bg-green-100 text-green-800",
-      description: "Votre ticket a été résolu. Si le problème persiste, n'hésitez pas à le signaler",
+      description:
+        "Votre ticket a été résolu. Si le problème persiste, n'hésitez pas à le signaler",
     },
     4: {
       color: "red",
@@ -343,8 +341,6 @@ const ticket_config = {
   },
 };
 
-
-
 function WorkflowStep({ num, label, active, completed, statusColor, date }) {
   return (
     <div className="flex items-center gap-3 group cursor-default">
@@ -354,31 +350,34 @@ function WorkflowStep({ num, label, active, completed, statusColor, date }) {
             className={`
               w-8 h-8 rounded-full flex items-center justify-center
               text-sm font-medium transition-all duration-300
-              ${active 
-                ? `bg-gradient-to-r from-${statusColor}-500 to-${statusColor}-600 text-white shadow-lg` 
-                : completed
-                  ? `bg-${statusColor}-500 text-white`
-                  : "bg-gradient-to-r from-gray-100 to-gray-200 text-gray-500"
-            }
+              ${
+                active
+                  ? `bg-gradient-to-r from-${statusColor}-500 to-${statusColor}-600 text-white shadow-lg`
+                  : completed
+                    ? `bg-${statusColor}-500 text-white`
+                    : "bg-gradient-to-r from-gray-100 to-gray-200 text-gray-500"
+              }
           `}
           >
             {completed ? "✓" : num}
           </div>
-          
+
           {active && (
-            <div className={`absolute inset-0 rounded-full bg-${statusColor}-400 blur-sm opacity-50 animate-pulse`} />
+            <div
+              className={`absolute inset-0 rounded-full bg-${statusColor}-400 blur-sm opacity-50 animate-pulse`}
+            />
           )}
         </div>
-        
+
         <div className="flex-1 flex items-center justify-between">
           <div>
-            <span className={`font-medium ${active ? "text-gray-900" : "text-gray-500"}`}>
+            <span
+              className={`font-medium ${active ? "text-gray-900" : "text-gray-500"}`}
+            >
               {label}
             </span>
             {active && date && (
-              <p className="text-xs text-gray-500 mt-1">
-                {formatDate(date)}
-              </p>
+              <p className="text-xs text-gray-500 mt-1">{formatDate(date)}</p>
             )}
           </div>
         </div>
@@ -387,15 +386,17 @@ function WorkflowStep({ num, label, active, completed, statusColor, date }) {
   );
 }
 
-
-
-export default function TicketDetail() {
+export default function TicketDetail({ tickets }) {
   const navigate = useNavigate();
   const { id } = useParams();
-  
+  const location = useLocation();
+
   const [ticket, setTicket] = useState(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const estSurPageDetail = location.pathname.startsWith(
+    "/Communs/TicketDetail/:id",
+  );
 
   useEffect(() => {
     if (!id) {
@@ -453,7 +454,7 @@ export default function TicketDetail() {
   if (!ticket) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-8">
-        <Button  onClick={()=> navigate("/ListTicket")}>
+        <Button onClick={() => navigate("/ListTicket")}>
           <ArrowLeft className="h-4 w-4 mr-2" />
           Retour à mes tickets
         </Button>
@@ -468,7 +469,6 @@ export default function TicketDetail() {
     );
   }
 
-
   const demoMessages = [
     {
       id: "1",
@@ -476,14 +476,15 @@ export default function TicketDetail() {
       content: ticket.descTic,
       date: ticket.dateCreTic,
       isCustomer: true,
-    }
+    },
   ];
 
   if (ticket.statutId !== 1) {
     demoMessages.push({
       id: "2",
       author: ticket.assignedTo || "Support",
-      content: "Merci pour votre message. Nous avons bien reçu votre demande et nous travaillons dessus. Nous reviendrons vers vous dans les plus brefs délais.",
+      content:
+        "Merci pour votre message. Nous avons bien reçu votre demande et nous travaillons dessus. Nous reviendrons vers vous dans les plus brefs délais.",
       date: new Date(new Date(ticket.dateCreTic).getTime() + 3600000),
       isCustomer: false,
     });
@@ -491,13 +492,6 @@ export default function TicketDetail() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 px-6 py-8">
-      <div className="flex items-center gap-3 hover:text-blue-700 mb-6">
-        <Button onClick={()=> navigate("/ListTicket")}>
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Retour à mes tickets
-        </Button>
-      </div>
-
       <Card className="border-2 border-blue-100 mb-5">
         <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 pb-6">
           <div className="space-y-3">
@@ -506,55 +500,62 @@ export default function TicketDetail() {
               <span className="text-gray-500">#TKT-0{ticket.numTic}</span>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <span className={`px-3 py-1.5 rounded-full text-sm font-medium 
+              <span
+                className={`px-3 py-1.5 rounded-full text-sm font-medium 
                 ${ticket_config.status[ticket.statutId]?.bgColor || "bg-gray-100 text-gray-800"}`}
               >
                 {ticket.statutLibelle}
               </span>
-              <span  className={`px-3 py-1.5 rounded-full text-sm font-medium 
+              <span
+                className={`px-3 py-1.5 rounded-full text-sm font-medium 
                 ${ticket_config.priorite[ticket.prioriteId]?.bgColor || "bg-gray-100 text-gray-800"}`}
               >
                 {ticket.prioriteLibelle}
               </span>
-               <span>
-                {ticket.categorieLibelle}
-              </span>
+              <span>{ticket.categorieLibelle}</span>
             </div>
           </div>
         </CardHeader>
 
         <CardContent className="p-6">
           <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-           <AlertCircle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
             <div>
-              <h4 className="text-blue-900 mb-1">Statut actuel</h4>
-              <p className="text-blue-700">{ticket_config.status[ticket.statutId]?.description}</p>
+              <h4 className="text-blue-900 mb-1">Description du ticket</h4>
+              <p className="text-blue-700">{ticket.descTic}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="flex items-center gap-2 text-gray-600">
-              <User className="h-4 w-4" />
-              <div>
+            <div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <User className="h-4 w-4" />
                 <span className="block">Client</span>
-                <span className="text-gray-900">{ticket.clientNom} {ticket.clientPrenom}</span>
               </div>
+              <span className="text-gray-900">
+                {ticket.clientNom} {ticket.clientPrenom}
+              </span>
             </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Calendar className="h-4 w-4" />
-              <div>
+
+            <div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <Calendar className="h-4 w-4" />
                 <span className="block">Créé le</span>
-                <span className="text-gray-900">{formatTicketDate(ticket.dateCreTic)}</span>
               </div>
+              <span className="text-gray-900">
+                {formatTicketDate(ticket.dateCreTic)}
+              </span>
             </div>
             <div className="flex items-center gap-2 text-gray-600">
-              <Tag className="h-4 w-4" />
               <div>
-                <span className="block">Catégorie</span>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <Tag className="h-4 w-4" />
+                  <span className="block">Catégorie</span>
+                </div>
+
                 <span className="text-gray-900">{ticket.categorieLibelle}</span>
               </div>
             </div>
-           
           </div>
 
           {ticket.assignedTo && (
@@ -592,7 +593,9 @@ export default function TicketDetail() {
                 </div>
                 <div className={`flex-1 ${msg.isCustomer ? "text-right" : ""}`}>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={msg.isCustomer ? "order-1" : ""}>{msg.author}</span>
+                    <span className={msg.isCustomer ? "order-1" : ""}>
+                      {msg.author}
+                    </span>
                     <span className="text-gray-500">
                       {formatTicketDate(msg.date)}
                     </span>
@@ -604,7 +607,9 @@ export default function TicketDetail() {
                         : "bg-gray-100 text-gray-900"
                     }`}
                   >
-                    <p className="whitespace-pre-wrap text-left">{msg.content}</p>
+                    <p className="whitespace-pre-wrap text-left">
+                      {msg.content}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -663,7 +668,7 @@ export default function TicketDetail() {
           <div className="space-y-4">
             {[1, 2, 3, 4].map((statutId) => {
               const statusConfig = ticket_config.status[statutId];
-              
+
               // Déterminer le libellé à afficher
               let label;
               if (statutId === ticket.statutId) {
@@ -675,13 +680,13 @@ export default function TicketDetail() {
                   1: "Ouvert",
                   2: "En cours",
                   3: "Resolu",
-                  4: "Fermé"
+                  4: "Fermé",
                 };
                 label = genericLabels[statutId];
               }
-              
+
               return (
-                <WorkflowStep 
+                <WorkflowStep
                   key={statutId}
                   num={statutId}
                   label={label}
@@ -701,9 +706,13 @@ export default function TicketDetail() {
           <CardContent className="p-6">
             <h4 className="mb-2">Le problème est-il résolu ?</h4>
             <p className="text-gray-600 mb-4">
-              Si le problème persiste, vous pouvez rouvrir ce ticket en ajoutant un message ci-dessus.
+              Si le problème persiste, vous pouvez rouvrir ce ticket en ajoutant
+              un message ci-dessus.
             </p>
-            <Button variant="outline" className="border-yellow-600 text-yellow-700 hover:bg-yellow-100">
+            <Button
+              variant="outline"
+              className="border-yellow-600 text-yellow-700 hover:bg-yellow-100"
+            >
               Rouvrir le ticket
             </Button>
           </CardContent>
@@ -711,6 +720,4 @@ export default function TicketDetail() {
       )}
     </div>
   );
-
-
 }

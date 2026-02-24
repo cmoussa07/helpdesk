@@ -16,6 +16,8 @@ import ListTicket from "./app/components/Communs/ListTicket";
 import Faqs from "./app/components/Client/Faqs";
 import Chats from "./app/components/Client/Chats";
 import TicketDetail from "./app/components/Communs/TicketDetail";
+import AttribuerTicket from "./app/components/Agent/AttribuerTicket";
+import Messagerie from "./app/components/Agent/Messagerie";
 
 function App() {
   const [tickets, setTickets] = useState([]);
@@ -54,8 +56,13 @@ function App() {
                   <ListTicket tickets={tickets} setTickets={setTickets} />
                 }
               />
-              {/* <Route path="/TicketDetail" element={<TicketDetail tickets={tickets} setTickets={setTickets} />} /> */}
-              {/* Ajoutez d'autres routes ici */}
+
+              <Route
+                path="/Communs/TicketDetail/:id"
+                element={
+                  <TicketDetail tickets={tickets} setTickets={setTickets} />
+                }
+              />
 
               <Route
                 path="/Communs/CreateTicket"
@@ -75,9 +82,15 @@ function App() {
                   />
                 }
               />
-            </Routes>
 
-            {/* {isModalOpen && <CreateTicketModal onClose={() => setIsModalOpen(false)} />} */}
+              <Route
+                path="/Agent/AttribuerTicket"
+                element={
+                  <AttribuerTicket tickets={tickets} setTickets={setTickets} />
+                }
+              />
+              <Route path="/Agent/Messagerie" element={<Messagerie />} />
+            </Routes>
           </main>
         </div>
       </div>

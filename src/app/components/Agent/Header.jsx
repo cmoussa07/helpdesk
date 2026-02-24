@@ -23,7 +23,7 @@ export default function Header({ tickets, setIsModalOpen }) {
   }, []);
 
   return (
-    <nav className="bg-blue-600 shadow-sm border-b border-blue-700 relative">
+    <nav className="bg-blue-500 shadow-sm border-b border-blue-500 relative">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Left Section (statique) */}
@@ -53,14 +53,14 @@ export default function Header({ tickets, setIsModalOpen }) {
               className="relative p-2 bg-white rounded-lg"
             >
               <Ticket className="w-5 h-5 text-gray-600" />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 {tickets.length}
               </span>
             </button>
             {/* Tickets statiques */}
             <button className="relative p-2 bg-white rounded-lg">
               <IoMdNotificationsOutline className="w-5 h-5 text-gray-600" />
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 3
               </span>
             </button>
